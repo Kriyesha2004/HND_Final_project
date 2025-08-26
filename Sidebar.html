@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Care Point - Dashboard</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #0f172a 0%,
+          #1e293b 25%,
+          #334155 50%,
+          #475569 75%,
+          #64748b 100%
+        );
+        color: #fff;
+        display: flex;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Animated Background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(34, 197, 94, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(59, 130, 246, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(168, 85, 247, 0.1) 0%,
+            transparent 50%
+          );
+        animation: backgroundShift 20s ease-in-out infinite;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%234ade80" fill-opacity="0.03"><circle cx="30" cy="30" r="2"/></g></g></svg>');
+        z-index: -1;
+      }
+
+      @keyframes backgroundShift {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+        }
+      }
+
+      /* Glass Morphism Sidebar */
+      .sidebar {
+        width: 280px;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        backdrop-filter: blur(20px);
+        background: rgba(15, 23, 42, 0.8);
+        border-right: 1px solid rgba(74, 222, 128, 0.2);
+        padding: 30px 20px;
+        z-index: 1000;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
+      }
+
+      .logo {
+        color: #4ade80;
+        font-size: 1.8em;
+        font-weight: 700;
+        margin-bottom: 40px;
+        text-align: center;
+        background: linear-gradient(135deg, #4ade80, #22c55e);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 30px rgba(74, 222, 128, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .sidebar li {
+        margin: 8px 0;
+      }
+
+      .sidebar a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-size: 1.1em;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        padding: 16px 20px;
+        border-radius: 16px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        gap: 12px;
+      }
+
+      .sidebar a::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(74, 222, 128, 0.1),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .sidebar a:hover::before {
+        left: 100%;
+      }
+
+      .sidebar a:hover {
+        color: #fff;
+        background: rgba(74, 222, 128, 0.1);
+        transform: translateX(8px);
+        box-shadow: 0 8px 32px rgba(74, 222, 128, 0.2);
+      }
+
+      .sidebar .active a {
+        color: #fff;
+        background: linear-gradient(
+          135deg,
+          rgba(74, 222, 128, 0.2),
+          rgba(34, 197, 94, 0.1)
+        );
+        border: 1px solid rgba(74, 222, 128, 0.3);
+        box-shadow: 0 8px 32px rgba(74, 222, 128, 0.2);
+      }
+
+      /* Main Content with Glass Effect */
+      .main-content {
+        margin-left: 280px;
+        padding: 40px;
+        min-height: 100vh;
+        flex: 1;
+        position: relative;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        text-align: center;
+        margin-bottom: 60px;
+        position: relative;
+        padding: 60px 0;
+      }
+
+      .hero-background {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120%;
+        height: 100%;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(74, 222, 128, 0.1) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        z-index: -1;
+      }
+
+      .hero-title {
+        font-size: 4em;
+        font-weight: 700;
+        background: linear-gradient(135deg, #4ade80, #22c55e, #16a34a);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 20px;
+        animation: titleGlow 3s ease-in-out infinite alternate;
+      }
+
+      @keyframes titleGlow {
+        0% {
+          filter: drop-shadow(0 0 20px rgba(74, 222, 128, 0.3));
+        }
+        100% {
+          filter: drop-shadow(0 0 40px rgba(74, 222, 128, 0.6));
+        }
+      }
+
+      .hero-subtitle {
+        font-size: 1.4em;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 40px;
+        font-weight: 300;
+      }
+
+      /* Floating Stats */
+      .floating-stats {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-bottom: 60px;
+      }
+
+      .stat-bubble {
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(74, 222, 128, 0.2);
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        min-width: 150px;
+        transition: all 0.3s ease;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .stat-bubble:nth-child(2) {
+        animation-delay: -2s;
+      }
+      .stat-bubble:nth-child(3) {
+        animation-delay: -4s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .stat-bubble:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 20px 60px rgba(74, 222, 128, 0.3);
+        background: rgba(74, 222, 128, 0.1);
+      }
+
+      .stat-number {
+        font-size: 2.5em;
+        font-weight: 700;
+        color: #4ade80;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .stat-label {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.95em;
+        font-weight: 500;
+      }
+
+      /* Feature Cards Grid */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
+      }
+
+      .feature-card {
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(74, 222, 128, 0.2);
+        border-radius: 24px;
+        padding: 40px 30px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+      }
+
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #4ade80, #22c55e, #16a34a);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .feature-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-12px);
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 32px 64px rgba(74, 222, 128, 0.2),
+          0 0 0 1px rgba(74, 222, 128, 0.3);
+      }
+
+      .card-icon {
+        font-size: 3.5em;
+        margin-bottom: 20px;
+        display: block;
+        filter: drop-shadow(0 4px 8px rgba(74, 222, 128, 0.3));
+      }
+
+      .card-title {
+        color: #fff;
+        font-size: 1.6em;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      .card-description {
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.8;
+        margin-bottom: 25px;
+        font-size: 1.05em;
+      }
+
+      .card-button {
+        background: linear-gradient(135deg, #4ade80, #22c55e);
+        color: #000;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.05em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.6s;
+      }
+
+      .card-button:hover::before {
+        left: 100%;
+      }
+
+      .card-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(74, 222, 128, 0.4);
+      }
+
+      /* Inspirational Quote Section */
+      .quote-section {
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(74, 222, 128, 0.2);
+        border-radius: 24px;
+        padding: 50px;
+        margin: 60px 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .quote-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+          circle at center,
+          rgba(74, 222, 128, 0.1) 0%,
+          transparent 70%
+        );
+        z-index: -1;
+      }
+
+      .quote-icon {
+        font-size: 4em;
+        color: rgba(74, 222, 128, 0.3);
+        margin-bottom: 20px;
+      }
+
+      .quote-text {
+        font-size: 1.8em;
+        color: #fff;
+        font-weight: 300;
+        line-height: 1.6;
+        margin-bottom: 30px;
+        font-style: italic;
+      }
+
+      .quote-author {
+        color: #4ade80;
+        font-weight: 600;
+        font-size: 1.2em;
+      }
+
+      /* Wellness Tips */
+      .wellness-section {
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(74, 222, 128, 0.2);
+        border-radius: 24px;
+        padding: 40px;
+        margin-bottom: 40px;
+      }
+
+      .wellness-title {
+        color: #fff;
+        font-size: 2em;
+        font-weight: 600;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .wellness-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+
+      .wellness-tip {
+        backdrop-filter: blur(10px);
+        background: rgba(74, 222, 128, 0.08);
+        padding: 25px;
+        border-radius: 16px;
+        border-left: 4px solid #4ade80;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .wellness-tip:hover {
+        transform: translateX(8px);
+        background: rgba(74, 222, 128, 0.12);
+        box-shadow: 0 8px 32px rgba(74, 222, 128, 0.2);
+      }
+
+      .tip-text {
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.6;
+        font-size: 1.05em;
+      }
+
+      /* Floating Action Button */
+      .fab {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #4ade80, #22c55e);
+        border: none;
+        border-radius: 50%;
+        font-size: 2em;
+        color: #000;
+        cursor: pointer;
+        box-shadow: 0 8px 32px rgba(74, 222, 128, 0.4);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .fab:hover {
+        transform: scale(1.1);
+        box-shadow: 0 12px 48px rgba(74, 222, 128, 0.6);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: relative;
+        }
+
+        .main-content {
+          margin-left: 0;
+          padding: 20px;
+        }
+
+        .hero-title {
+          font-size: 2.5em;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .floating-stats {
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+        }
+      }
+
+      /* Loading Animation */
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .loading-shimmer {
+        position: relative;
+        overflow: hidden;
+      }
+      .logoimg {
+        width: 50px;
+        height: 50px;
+      }
+
+      .loading-shimmer::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        transform: translateX(-100%);
+        animation: shimmer 2s infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Glass Morphism Sidebar -->
+    <div class="sidebar">
+      <h2 class="logo">
+        <img src="./stickers/primary 2.png" alt="" class="logoimg" /> Care Point
+      </h2>
+      <ul>
+        <li class="active">
+          <a href="#"><span>🏠</span> Home</a>
+        </li>
+        <li>
+          <a href="Music.html"><span>🎵</span> Music</a>
+        </li>
+        <li>
+          <a href="Journaling.php"><span>📓</span> Journal</a>
+        </li>
+        <li>
+          <a href="cbt.php"><span>🧠</span> CBT</a>
+        </li>
+        <li>
+          <a href="GroupChat.php"><span>💬</span> Group Chat</a>
+        </li>
+        <li>
+          <a href="Myprofile.php"><span>👤</span> My Profile</a>
+        </li>
+        <li>
+          <a href="logout.php"><span>🚪</span> Log Out</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="hero-background"></div>
+        <h1 class="hero-title">Welcome to Care Point</h1>
+        <p class="hero-subtitle">
+          Your sanctuary for mental wellness and personal growth 🌱
+        </p>
+      </div>
+
+      <!-- Floating Stats -->
+      <div class="floating-stats">
+        <div class="stat-bubble">
+          <span class="stat-number">24/7</span>
+          <span class="stat-label">Support</span>
+        </div>
+        <div class="stat-bubble">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Private</span>
+        </div>
+        <div class="stat-bubble">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">Care</span>
+        </div>
+      </div>
+
+      <!-- Feature Cards -->
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="card-icon">🎵</span>
+          <h3 class="card-title">Therapeutic Music</h3>
+          <p class="card-description">
+            Immerse yourself in carefully curated soundscapes designed to soothe
+            anxiety, boost mood, and promote deep relaxation.
+          </p>
+          <a href="Music.html" class="card-button">Explore Sounds</a>
+        </div>
+
+        <div class="feature-card">
+          <span class="card-icon">📓</span>
+          <h3 class="card-title">Digital Journaling</h3>
+          <p class="card-description">
+            Express your deepest thoughts in a secure space. Track emotions,
+            celebrate victories, and process challenges with guided prompts.
+          </p>
+          <a href="Journaling.php" class="card-button">Start Writing</a>
+        </div>
+
+        <div class="feature-card">
+          <span class="card-icon">🧠</span>
+          <h3 class="card-title">CBT Toolkit</h3>
+          <p class="card-description">
+            Master evidence-based cognitive behavioral techniques to rewire
+            negative thought patterns and build lasting resilience.
+          </p>
+          <a href="cbt.php" class="card-button">Begin Training</a>
+        </div>
+
+        <div class="feature-card">
+          <span class="card-icon">💬</span>
+          <h3 class="card-title">Support Community</h3>
+          <p class="card-description">
+            Connect with like-minded individuals on similar journeys. Share
+            experiences, offer support, and grow together.
+          </p>
+          <a href="GroupChat.php" class="card-button">Join Community</a>
+        </div>
+
+        <div class="feature-card">
+          <span class="card-icon">👤</span>
+          <h3 class="card-title">Personal Dashboard</h3>
+          <p class="card-description">
+            Monitor your mental health journey with detailed analytics, mood
+            tracking, and personalized insights.
+          </p>
+          <a href="Myprofile.php" class="card-button">View Progress</a>
+        </div>
+
+        <div class="feature-card">
+          <span class="card-icon">🌱</span>
+          <h3 class="card-title">Daily Wellness</h3>
+          <p class="card-description">
+            Access personalized daily activities, mindfulness exercises, and
+            wellness challenges tailored to your needs.
+          </p>
+          <a href="#" class="card-button">Get Started</a>
+        </div>
+      </div>
+
+      <!-- Inspirational Quote -->
+      <div class="quote-section">
+        <div class="quote-icon">💫</div>
+        <div class="quote-text">
+          "Healing is not about becoming someone new. It's about becoming who
+          you were meant to be all along."
+        </div>
+        <div class="quote-author">— Care Point Philosophy</div>
+      </div>
+
+      <!-- Wellness Tips -->
+      <div class="wellness-section">
+        <h2 class="wellness-title">
+          <span>✨</span>
+          Daily Wellness Practices
+        </h2>
+        <div class="wellness-grid">
+          <div class="wellness-tip">
+            <p class="tip-text">
+              🧘‍♀️ Practice 5 minutes of mindful breathing to center yourself and
+              reduce stress levels
+            </p>
+          </div>
+          <div class="wellness-tip">
+            <p class="tip-text">
+              🎶 Create a mood-boosting playlist that resonates with your
+              current emotional state
+            </p>
+          </div>
+          <div class="wellness-tip">
+            <p class="tip-text">
+              📝 Write down three things you're grateful for to shift focus to
+              positive aspects of life
+            </p>
+          </div>
+          <div class="wellness-tip">
+            <p class="tip-text">
+              🌿 Spend time in nature, even if it's just looking out a window at
+              trees or sky
+            </p>
+          </div>
+          <div class="wellness-tip">
+            <p class="tip-text">
+              💪 Engage in gentle movement like stretching or walking to boost
+              endorphins
+            </p>
+          </div>
+          <div class="wellness-tip">
+            <p class="tip-text">
+              🤝 Reach out to a friend or family member to maintain meaningful
+              connections
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab" title="Quick Help">💡</button>
+
+    <script>
+      // Smooth animations and interactions
+      document.addEventListener("DOMContentLoaded", function () {
+        // Parallax effect for hero section
+        window.addEventListener("scroll", function () {
+          const scrolled = window.pageYOffset;
+          const parallax = document.querySelector(".hero-background");
+          if (parallax) {
+            parallax.style.transform = `translateX(-50%) translateY(${
+              scrolled * 0.5
+            }px)`;
+          }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        }, observerOptions);
+
+        // Observe feature cards
+        document.querySelectorAll(".feature-card").forEach((card) => {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(30px)";
+          card.style.transition = "all 0.6s ease";
+          observer.observe(card);
+        });
+
+        // Observe wellness tips
+        document.querySelectorAll(".wellness-tip").forEach((tip, index) => {
+          tip.style.opacity = "0";
+          tip.style.transform = "translateX(-30px)";
+          tip.style.transition = `all 0.6s ease ${index * 0.1}s`;
+          observer.observe(tip);
+        });
+
+        // Floating Action Button
+        document.querySelector(".fab").addEventListener("click", function () {
+          alert(
+            "🌟 Remember: You are stronger than you think, braver than you feel, and more loved than you know!"
+          );
+        });
+
+        // Enhanced hover effects
+        document.querySelectorAll(".feature-card").forEach((card) => {
+          card.addEventListener("mouseenter", function () {
+            this.style.transform = "translateY(-15px) scale(1.02)";
+          });
+
+          card.addEventListener("mouseleave", function () {
+            this.style.transform = "translateY(0) scale(1)";
+          });
+        });
+
+        // Dynamic background color shift
+        let hue = 0;
+        setInterval(() => {
+          hue = (hue + 1) % 360;
+          document.documentElement.style.setProperty("--dynamic-hue", hue);
+        }, 100);
+      });
+    </script>
+  </body>
+</html>

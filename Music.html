@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Care Point - Calm Music Player</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #1f2220;
+        color: #fff;
+        padding-left: 200px;
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: #0e0e0e;
+        padding: 15px 20px;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        font-size: 24px;
+        text-decoration: none;
+        color: #0ec05e;
+        font-weight: bold;
+      }
+
+      .logo span {
+        color: #fff;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 200px;
+        height: 100%;
+        background-color: #121212;
+        padding-top: 30px;
+      }
+
+      .sidebar ul {
+        list-style: none;
+      }
+
+      .sidebar ul li {
+        margin: 15px 0;
+      }
+
+      .sidebar ul li a {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+        display: block;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      .sidebar ul li a:hover {
+        background-color: #0ec05e;
+        color: #000;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 100px auto 40px;
+        padding: 0 20px;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #0ec05e;
+      }
+
+      .song-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .song {
+        background: #047c1e;
+        padding: 15px 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: 0.3s ease;
+      }
+
+      .song:hover {
+        background-color: #1c1b1c;
+      }
+
+      .song-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .song-name {
+        font-weight: 500;
+        flex-grow: 1;
+        font-size: 16px;
+      }
+
+      .heart-button {
+        font-size: 20px;
+        color: #f0f0f0;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .heart-button.liked {
+        color: #e91e63;
+      }
+
+      audio {
+        width: 100%;
+        margin-top: 10px;
+        outline: none;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding-left: 0;
+        }
+
+        .sidebar {
+          display: none;
+        }
+
+        header {
+          justify-content: center;
+        }
+
+        .container {
+          margin-top: 80px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <a href="Home.html" class="logo">Care <span>Point</span></a>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <ul>
+        <li><a href="Sidebar.html">Home</a></li>
+        <li><a href="Music.html">Music</a></li>
+        <li><a href="Journaling.php">Journaling</a></li>
+        <li><a href="cbt.php">CBT</a></li>
+        <li><a href="GroupChat.php">💬Group Chat</a></li>
+        <li><a href="Myprofile.php">👤My Profile</a></li>
+        <li><a href="Home.html">Logout</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+      <h2>🎵 Calm Music Player</h2>
+      <div class="song-list" id="songList"></div>
+    </div>
+
+    <!-- Script -->
+    <script>
+      const songs = [
+        { id: 'song1', name: "Peaceful Morning", file: "song/song10.mp3" },
+        { id: 'song2', name: "Kamin", file: "song/song2.mp3" },
+        { id: 'song3', name: "Detsvo", file: "song/song3.mp3" },
+        { id: 'song4', name: "La calin", file: "song/song4.mp3" },
+        { id: 'song5', name: "Deep Breaths", file: "song/song5.mp3" },
+        { id: 'song6', name: "Soothing Winds", file: "song/song6.mp3" },
+        { id: 'song7', name: "Gentle Piano", file: "song/song7.mp3" },
+        { id: 'song8', name: "Rain on Leaves", file: "song/song8.mp3" },
+        { id: 'song9', name: "Tranquil Guitar", file: "song/song9.mp3" },
+        { id: 'song10', name: "Healing Vibes", file: "song/song11.mp3" },
+        { id: 'song11', name: "Lake Serenity", file: "songs/song11.mp3" },
+        { id: 'song12', name: "Mindful Moments", file: "songs/song12.mp3" },
+        { id: 'song13', name: "Zen Meditation", file: "songs/song13.mp3" },
+        { id: 'song14', name: "Dreamy Clouds", file: "songs/song14.mp3" },
+        { id: 'song15', name: "Forest Walk", file: "songs/song15.mp3" },
+        { id: 'song16', name: "Sunset Calm", file: "songs/song16.mp3" },
+        { id: 'song17', name: "Breathing Space", file: "songs/song17.mp3" },
+        { id: 'song18', name: "Gentle River", file: "songs/song18.mp3" },
+        { id: 'song19', name: "Lullaby of Nature", file: "songs/song19.mp3" },
+        { id: 'song20', name: "Pure Harmony", file: "songs/song20.mp3" },
+      ];
+
+      const songList = document.getElementById("songList");
+
+      let likedSet = new Set();
+
+      async function loadLikes() {
+        try {
+          const res = await fetch('get_music_reactions.php');
+          const data = await res.json();
+          if (data.success && Array.isArray(data.liked)) {
+            likedSet = new Set(data.liked);
+          }
+        } catch (e) { /* noop */ }
+      }
+
+      function renderSongs() {
+        songList.innerHTML = '';
+        songs.forEach((song, index) => {
+          const songDiv = document.createElement("div");
+          songDiv.className = "song";
+          const liked = likedSet.has(song.id);
+          songDiv.innerHTML = `
+          <div class="song-header">
+            <div class="song-name">${index + 1}. ${song.name}</div>
+            <i class="${liked ? 'fa-solid liked' : 'fa-regular'} fa-heart heart-button" data-song-id="${song.id}"></i>
+          </div>
+          <audio controls>
+            <source src="${song.file}" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+        `;
+          songList.appendChild(songDiv);
+        });
+      }
+
+      async function toggleLike(icon) {
+        const songId = icon.getAttribute('data-song-id');
+        const willLike = !icon.classList.contains('liked');
+        try {
+          await fetch('save_music_reaction.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ song_id: songId, like: willLike })
+          });
+          if (willLike) { likedSet.add(songId); } else { likedSet.delete(songId); }
+          icon.classList.toggle('fa-regular', !willLike);
+          icon.classList.toggle('fa-solid', willLike);
+          icon.classList.toggle('liked', willLike);
+        } catch (e) { /* noop */ }
+      }
+
+      songList.addEventListener('click', (e) => {
+        const icon = e.target.closest('.heart-button');
+        if (!icon) return;
+        toggleLike(icon);
+      });
+
+      (async function init(){
+        await loadLikes();
+        renderSongs();
+      })();
+    </script>
+  </body>
+</html>

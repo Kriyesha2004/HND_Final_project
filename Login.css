@@ -1,0 +1,253 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  text-decoration: none;
+  list-style: none;
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Color Palette */
+:root {
+  --main-color: #0b914c;
+  --bg-color: #1c1c1c;
+  --text-color: #fff;
+  --snd-bg-color: #222;
+  --input-bg: #333;
+  --border-color: #555;
+  --hover-color: #0fad5f;
+  --error-color: #e74c3c;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10%;
+  background: var(--bg-color);
+  color: var(--main-color);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--main-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.logo span {
+  color: var(--hover-color);
+}
+
+.navbar {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar a {
+  color: var(--text-color);
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.navbar a:hover,
+.navbar a:focus {
+  color: var(--main-color);
+}
+
+/* Login Section */
+.login {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  margin-top: 80px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.login-content {
+  text-align: center;
+}
+
+.login h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--main-color);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  padding: 12px;
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.input-group input::placeholder {
+  color: #aaa;
+}
+
+.input-group input:focus {
+  border-color: var(--main-color);
+  outline: 2px solid var(--main-color);
+  background-color: #2a2a2a;
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.9rem;
+  margin-top: 5px;
+  display: none;
+}
+
+/* Button */
+.btn {
+  padding: 12px;
+  background-color: var(--main-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: var(--hover-color);
+  outline: none;
+}
+
+/* BMI Calculator Section */
+.bmi-calculator {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 80px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.bmi-calculator h2 {
+  color: var(--main-color);
+  margin-bottom: 20px;
+}
+
+.bmi-calculator .input-group {
+  margin-bottom: 15px;
+}
+
+.bmi-calculator #bmi-result {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+/* Meal Plan Section */
+.meal-plan {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.meal-plan ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.meal-plan li {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+.meal-plan strong {
+  color: var(--main-color);
+}
+
+/* Accessibility Focus States */
+a:focus,
+button:focus,
+input:focus {
+  outline: 2px dashed var(--main-color);
+  outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login,
+  .bmi-calculator,
+  .meal-plan {
+    width: 90%;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 5%;
+  }
+
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+  }
+}

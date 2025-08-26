@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #0f0f0f;
+  color: #fff;
+  display: flex;
+}
+
+.sidebar {
+  width: 220px;
+  background: #111;
+  padding: 20px;
+  height: 100vh;
+}
+
+.sidebar .logo {
+  color: #00ff80;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  color: #ccc;
+  text-decoration: none;
+  display: block;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.sidebar ul li.active a {
+  background-color: #003322;
+  color: #00ff80;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-title {
+  color: #00ff80;
+}
+
+.toolbar button {
+  background: #181818;
+  color: #fff;
+  border: 1px solid #00ff80;
+  padding: 5px 10px;
+  margin-left: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.toolbar button:hover {
+  background: #00ff80;
+  color: #000;
+}
+
+.slides-container {
+  margin-top: 20px;
+}
+
+.slide {
+  background: #181818;
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 200px;
+  margin-bottom: 15px;
+  outline: none;
+}
+
+.slide.active {
+  border: 2px solid #00ff80;
+}
+#stickerPicker img {
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+#stickerPicker img:hover {
+  transform: scale(1.1);
+  border: 2px solid #4caf50;
+}

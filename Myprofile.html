@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Care Point - My Profile</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0f0f0f;
+      color: #fff;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background-color: #111;
+      padding: 20px;
+      height: 100vh;
+    }
+    .logo {
+      color: #4ade80;
+      font-size: 1.5em;
+      margin-bottom: 30px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 15px 0;
+    }
+    a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 1em;
+    }
+    .active a {
+      color: #4ade80;
+      font-weight: bold;
+    }
+
+    /* Main content */
+    .main-content {
+      flex: 1;
+      padding: 20px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .settings-btn {
+      background: none;
+      border: none;
+      font-size: 1.2em;
+      color: #bbb;
+      cursor: pointer;
+    }
+    .profile-container {
+      margin-top: 20px;
+    }
+    .profile-card {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+      background: #333;
+      border-radius: 50%;
+      margin: auto;
+    }
+    .edit-btn {
+      background: #4ade80;
+      border: none;
+      padding: 8px 15px;
+      margin-top: 10px;
+      cursor: pointer;
+      color: black;
+      border-radius: 6px;
+    }
+
+    /* Info cards */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #1a1a1a;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .highlight {
+      color: #4ade80;
+    }
+    .mood-icons {
+      display: flex;
+      justify-content: space-around;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .mood-icons span {
+      transition: transform 0.2s;
+    }
+    .mood-icons span:hover {
+      transform: scale(1.2);
+    }
+    canvas {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2 class="logo">🌿 Care Point</h2>
+    <ul>
+      <li><a href="Sidebar.html">🏠 Home</a></li>
+      <li><a href="Music.html">🎵 Music</a></li>
+      <li><a href="Journaling.php">📓 Journal</a></li>
+      <li><a href="cbt.html">🧠CBT</a></li>
+        
+      <li class="active"><a href="#">👤 My Profile</a></li>
+      <li><a href="Home.html">🚪 Log Out</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <header>
+      <h1>My Profile</h1>
+      <button class="settings-btn">⚙️Setting</button>
+    </header>
+
+    <div class="profile-container">
+      <div class="profile-card">
+        <div class="profile-pic"></div>
+        <h3>Name</h3>
+        <a href="editbutton.php" class="edit-btn">Edit Profile</button></a>
+      </div>
+
+    
+
+        
+
+        <div class="card">
+          <h4>Monthly Mood Tracking</h4>
+          <div class="mood-icons">
+            <span onclick="updateMood('happy')">😊</span>
+            <span onclick="updateMood('neutral')">😐</span>
+            <span onclick="updateMood('sad')">😔</span>
+            <span onclick="updateMood('cry')">😢</span>
+            <span onclick="updateMood('angry')">😡</span>
+          </div>
+          <canvas id="moodChart" height="150"></canvas>
+        </div>
+
+        <title>Stress & Mood Awareness</title>
+<style>
+    body {
+        background-color: #0f0f0f;
+        font-family: Arial, sans-serif;
+        color: white;
+        padding: 20px;
+    }
+
+    h2 {
+        color: #4ade80;
+        margin-bottom: 20px;
+    }
+
+    .question-card {
+        background: #1a1a1a;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .question {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+
+    .options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .option-btn {
+        background: #333;
+        color: white;
+        padding: 8px 14px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.95em;
+        transition: background 0.2s;
+    }
+    .option-btn:hover {
+        background: #4ade80;
+        color: black;
+    }
+
+    .tick-btn {
+        background: #4ade80;
+        color: black;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1.1em;
+        transition: background 0.2s;
+    }
+    .tick-btn:hover {
+        background: #22c55e;
+    }
+
+    .selected {
+        background: #4ade80 !important;
+        color: black !important;
+    }
+</style>
+</head>
+<body>
+
+<h2>🌱 Stress & Mood Awareness Questions</h2>
+
+<div id="questions-container">
+    <!-- Question 1 -->
+    <div class="question-card">
+        <div class="question">On a scale of 1–10, how stressed do you feel right now?</div>
+        <div class="options">
+            <button class="option-btn">1</button>
+            <button class="option-btn">2</button>
+            <button class="option-btn">3</button>
+            <button class="option-btn">4</button>
+            <button class="option-btn">5</button>
+            <button class="option-btn">6</button>
+            <button class="option-btn">7</button>
+            <button class="option-btn">8</button>
+            <button class="option-btn">9</button>
+            <button class="option-btn">10</button>
+        </div>
+        <button class="tick-btn">✔</button>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question-card">
+        <div class="question">How well did you sleep last night?</div>
+        <div class="options">
+            <button class="option-btn">Great</button>
+            <button class="option-btn">Okay</button>
+            <button class="option-btn">Poor</button>
+        </div>
+        <button class="tick-btn">✔</button>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question-card">
+        <div class="question">Have you felt overwhelmed in the past 24 hours?</div>
+        <div class="options">
+            <button class="option-btn">Yes</button>
+            <button class="option-btn">No</button>
+            <button class="option-btn">A little</button>
+        </div>
+        <button class="tick-btn">✔</button>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question-card">
+        <div class="question">What’s been your biggest source of stress today?</div>
+        <div class="options">
+            <button class="option-btn">Work</button>
+            <button class="option-btn">School</button>
+            <button class="option-btn">Family</button>
+            <button class="option-btn">Health</button>
+            <button class="option-btn">Other</button>
+        </div>
+        <button class="tick-btn">✔</button>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="question-card">
+        <div class="question">Have you taken a break for yourself today?</div>
+        <div class="options">
+            <button class="option-btn">Yes</button>
+            <button class="option-btn">No</button>
+        </div>
+        <button class="tick-btn">✔</button>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="question-card">
+        <div class="question">Do you feel you have someone to talk to about your feelings?</div>
+        <div class="options">
+            <button class="option-btn">Yes</button>
+            <button class="option-btn">Not sure</button>
+            <button class="option-btn">No</button>
+        </div>
+        <button class="tick-btn">✔</button>
+    </div>
+
+    <!-- Question 7 -->
+    <div class="question-card">
+        <div class="question">How’s your energy level right now?</div>
+        <div class="options">
+            <button class="option-btn">⚡ High</button>
+            <button class="option-btn">🔋 Medium</button>
+            <button class="option-btn">🪫 Low</button>
+        </div>
+        <button class="tick-btn">✔</button>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="question-card">
+        <div class="question">Have you noticed physical symptoms of stress?</div>
+        <div class="options">
+            <button class="option-btn">Often</button>
+            <button class="option-btn">Sometimes</button>
+            <button class="option-btn">Never</button>
+        </div>
+        <button class="tick-btn">✔</button>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="question-card">
+        <div class="question">What’s one thing you wish could be different about your day?</div>
+        <input type="text" placeholder="Type your answer..." style="width:100%;padding:8px;border-radius:6px;border:none;">
+        <br><br>
+        <button class="tick-btn">✔</button>
+    </div>
+</div>
+
+<script>
+    // Highlight selected answer
+    document.querySelectorAll('.options').forEach(optionGroup => {
+        const buttons = optionGroup.querySelectorAll('.option-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+            });
+        });
+    });
+
+    // Tick button click
+    document.querySelectorAll('.tick-btn').forEach(tick => {
+        tick.addEventListener('click', () => {
+            alert("Answer submitted ✅");
+        });
+    });
+</script>
+
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('moodChart').getContext('2d');
+    const moodDataSets = {
+      happy: [90, 85, 88, 92, 95, 93, 97],
+      neutral: [50, 55, 60, 58, 54, 57, 59],
+      sad: [30, 28, 25, 20, 22, 18, 15],
+      cry: [10, 12, 8, 6, 5, 4, 3],
+      angry: [40, 38, 42, 45, 43, 41, 39]
+    };
+
+    let moodChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        datasets: [{
+          label: 'Mood Progress',
+          data: moodDataSets.happy,
+          borderColor: '#4ade80',
+          backgroundColor: 'rgba(74, 222, 128, 0.2)',
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, max: 100 }
+        }
+      }
+    });
+
+    function updateMood(mood) {
+      moodChart.data.datasets[0].data = moodDataSets[mood];
+      moodChart.update();
+    }
+  </script>
+
+</body>
+</html>

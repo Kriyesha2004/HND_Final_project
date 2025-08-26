@@ -1,0 +1,119 @@
+/* Modal background overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(19, 19, 19, 0.75); /* dark overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal container */
+.modal {
+  background-color: #eaeeef;
+  border-radius: 15px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* Modal Header */
+.modal .profile-header {
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #099d5f, #098a4e);
+  color: rgb(16, 15, 15);
+  text-align: center;
+  border-bottom: 1.5px solid #07773f;
+}
+
+.modal .profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid white;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+/* Form styling */
+.modal form {
+  padding: 25px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label styling */
+.modal form label {
+  margin-top: 20px;
+  margin-bottom: 6px;
+  font-size: 15px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Input fields */
+.modal form input[type="text"],
+.modal form input[type="email"],
+.modal form input[type="password"] {
+  padding: 12px 14px;
+  border: 1.8px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+}
+
+.modal form input[type="text"]:focus,
+.modal form input[type="email"]:focus,
+.modal form input[type="password"]:focus {
+  outline: none;
+  border-color: #099d5f;
+  box-shadow: 0 0 8px rgba(9, 157, 95, 0.4);
+}
+
+/* Submit button */
+.modal form button {
+  margin-top: 30px;
+  padding: 14px 0;
+  background: #099d5f;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  letter-spacing: 1.1px;
+}
+
+.modal form button:hover {
+  background: #07773f;
+}
+
+/* Success message */
+.modal p {
+  margin: 0 30px 15px 30px;
+  font-weight: 600;
+  color: #2f8f40;
+  text-align: center;
+}
+
+/* Logout link */
+.modal a {
+  display: block;
+  text-align: center;
+  margin: 15px 0 25px 0;
+  color: #099d5f;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.modal a:hover {
+  text-decoration: underline;
+}
